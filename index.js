@@ -25,8 +25,22 @@ function getConstant(r,c) {
     return [x, y];
 }
 
+const maxIterations = 9;
 function calculate(constant) {
-    return constant;
+    const cx = constant[0];
+    const cy = constant[1];
+    let fx = 0;
+    let fy = 0;
+    for (let i=0; i<maxIterations; i++) {
+        let tempX = fx**2 - fy**2 + cx;
+	let tempY = 2*fx*fy + cy;
+	if (Math.sqrt(tempX**2 + tempY**2) >= 2) {
+	    return i;
+        }
+	fx = tempX;
+	fy = tempY;
+    }
+    return maxIterations;
 }
 
 function color(r, c, value) {
@@ -35,9 +49,9 @@ function color(r, c, value) {
     ctx.fillRect(r, c, 1, 1);
 }
 
-const colors = ['red', 'black', 'yellow'];
+const colors = ['grey', 'white', 'yellow', 'orange', 'red', 'pink', 'purple', 'blue', 'navy', 'black'];
 function getColor(value) {
-    return colors[(Math.round(Math.random()*100)) % colors.length];
+    return colors[value];
 }
 
 render();
