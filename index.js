@@ -49,7 +49,7 @@ function color(r, c, value) {
     ctx.fillRect(r, c, 1, 1);
 }
 
-const colors = ['grey', 'white', 'yellow', 'orange', 'red', 'pink', 'purple', 'blue', 'navy', 'black'];
+const colors = ['grey', 'white', 'yellow', 'orange', 'red', 'darkred', 'purple', 'blue', 'navy', 'black'];
 function getColor(value) {
     return colors[value];
 }
