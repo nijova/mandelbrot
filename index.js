@@ -8,7 +8,7 @@ let maxX = 2;
 let minY = -2;
 let maxY = 2;
 let stepX = (maxX - minX) / w;
-let stepY = (maxY - minY) / h;
+let stepY = -(maxY - minY) / h; // because canvas origin at top left corner. Flip y
 
 function render() {
     for (let r=0; r<h; r++) {
@@ -21,7 +21,7 @@ function render() {
 
 function getConstant(r,c) {
     let x = minX + r * stepX;
-    let y = minY + c * stepY;
+    let y = maxY + c * stepY;
     return [x, y];
 }
 
