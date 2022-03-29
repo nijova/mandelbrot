@@ -26,13 +26,18 @@ function getConstant(r,c) {
 }
 
 function calculate(constant) {
-    console.log(constant);
-    return 1;
+    return constant;
 }
 
 function color(r, c, value) {
-    console.log('paint cell r c in color for value');
+    let valueColor = getColor(value);
+    ctx.fillStyle = valueColor;
+    ctx.fillRect(r, c, 1, 1);
 }
 
-console.log(getConstant(1,2))
+const colors = ['red', 'black', 'yellow'];
+function getColor(value) {
+    return colors[(Math.round(Math.random()*100)) % colors.length];
+}
 
+render();
