@@ -8,7 +8,7 @@ let maxX = 2;
 let minY = -2;
 let maxY = 2;
 let stepX = (maxX - minX) / w;
-let stepY = -(maxY - minY) / h; // because canvas origin at top left corner. Flip y
+let stepY = -(maxY - minY) / h;
 
 function render() {
     for (let r=0; r<h; r++) {
@@ -25,7 +25,7 @@ function getConstant(r,c) {
     return [x, y];
 }
 
-const maxIterations = 9;
+const maxIterations = 255;
 function calculate(constant) {
     const cx = constant[0];
     const cy = constant[1];
@@ -49,9 +49,31 @@ function color(r, c, value) {
     ctx.fillRect(r, c, 1, 1);
 }
 
-const colors = ['grey', 'white', 'yellow', 'orange', 'red', 'darkred', 'purple', 'blue', 'navy', 'black'];
 function getColor(value) {
-    return colors[value];
+    return `rgb(${255 - value},${255 - value}, ${255 - value} )`;
 }
+function zoom(x, y) {
+    let distX = maxX - minX;
+    if (x === 0) {maxX -= distX / 2.2;}
+    if (x === 1) {minX += distX / 4.4; maxX -= distX / 4.4;}
+    if (x === 2) {minX += distX / 2.2;}
+    let distY = maxY - minY;
+    if (y === 2) {maxY -= distY / 2.2;}
+    if (y === 1) {minY += distY / 4.4; maxY -= distY / 4.4;}
+    if (y === 0) {minY += distY / 2.2;}
+    stepX = (maxX - minX) / w;
+    stepY = -(maxY - minY) / h;
+    render();
+}
+
+document.getElementById('topleft').onclick = () => zoom(0,0);
+document.getElementById('topmid').onclick = () => zoom(1,0);
+document.getElementById('topright').onclick = () => zoom(2,0);
+document.getElementById('midleft').onclick = () => zoom(0,1);
+document.getElementById('midmid').onclick = () => zoom(1,1);
+document.getElementById('midright').onclick = () => zoom(2,1);
+document.getElementById('bottomleft').onclick = () => zoom(0,2);
+document.getElementById('bottommid').onclick = () => zoom(1,2);
+document.getElementById('bottomright').onclick = () => zoom(2,2);
 
 render();
